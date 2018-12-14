@@ -1,24 +1,16 @@
-from collections import defaultdict
+import re
+claimed = {(i,j):0 for i in range(1,1001) for j in range(1,1001)}
 
-def get_counts(s):
-    count_dict = defaultdict(int)
-    for char in s:
-        count_dict[char] += 1
-    return count_dict
+pattern = re.compile(r'#\d+ @ (\d+),(\d+): (\d+)x(\d+)')
+def parse(s):
+    x_offset, y_offset, width, height = pattern.search(s).groups()
+    return int(x_offset), int(y_offset), int(width), int(height)
 
-twicers = 0
-thricers = 0
-
-with open('input2.txt', 'rb') as f:
+with open('input3.txt', 'r') as f:
     for line in f:
-        counts = get_counts(line)
-        is_twicer = 0
-        is_thricer = 0
-        for char in counts:
-            if counts[char] == 2:
-                is_twicer = 1
-            if counts[char] == 3:
-                is_thricer = 1
-        twicers += is_twicer
-        thricers += is_thricer
+        x_offset, y_offset, width, height = parse(line)
+        for x in range(1, width+1):
+            for y in range(1, height+1):
+                claimed[(x_offset+x, y_offset+y)] += 1
 
+print(sum([claimed[tup] > 1 for tup in claimed]))
