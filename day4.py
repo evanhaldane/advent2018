@@ -28,3 +28,5 @@ for stamp in stamps:
 
 guard_with_most_sleep = max(asleep_counts.keys(), key=(lambda key: sum(asleep_counts[key].values())))
 most_sleepy_minute = max(asleep_counts[guard_with_most_sleep], key=(lambda key: asleep_counts[guard_with_most_sleep][key]))
+
+guard_with_most_sleep * most_sleepy_minute
