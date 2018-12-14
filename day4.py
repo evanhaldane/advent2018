@@ -30,3 +30,6 @@ guard_with_most_sleep = max(asleep_counts.keys(), key=(lambda key: sum(asleep_co
 most_sleepy_minute = max(asleep_counts[guard_with_most_sleep], key=(lambda key: asleep_counts[guard_with_most_sleep][key]))
 
 guard_with_most_sleep * most_sleepy_minute
+
+max_guard, max_minute = max([(guard, minute) for guard in asleep_counts for minute in asleep_counts[guard]], key = (lambda t: asleep_counts[t[0]][t[1]]))
+max_guard*max_minute
